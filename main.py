@@ -31,7 +31,7 @@ def maxwell_boltzmann_pdf(E, T):
 # Calculate the mean energy for the slowing down PDF
 def mean_energy_slowing_down(E_c, E_alpha, A):
     def integrand(E):
-        return E / (1 + (E_c / E)**(3/2))
+        return 1 / (1 + (E_c / E)**(3/2))
     
     integral, _ = quad(integrand, 0, E_alpha)
     mean_energy = A * integral
@@ -61,16 +61,16 @@ f_MB = maxwell_boltzmann_pdf(E_values, T_MB)
 plt.figure(figsize=(8, 9))  # Aspect ratio 8:9 for the right half of a slide
 plt.rcParams.update({'font.size': 18})  # Increase font size for all plot elements
 
-plt.plot(E_values, f_slowing_down, label='Slowing Down PDF')
-plt.plot(E_values, f_MB, label='Maxwell-Boltzmann PDF', linestyle='--')
-plt.xlabel('Energy (MeV)')
-plt.ylabel('Probability Density Function')
+plt.plot(E_values, f_slowing_down, label='Slowing Down')
+plt.plot(E_values, f_MB, label='Maxwell-Boltzmann', linestyle='--')
+plt.xlabel('Energy [MeV]')
+plt.ylabel(r'Probability Density Function [MeV$^{-1}$]')
 # plt.title('Slowing Down and Maxwell-Boltzmann Distributions')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()  # Adjust layout to prevent clipping of labels and title
 # plt.show()
-
+plt.savefig('main.png', bbox_inches='tight', dpi=300)
 
 # Check if PDFs integrate to 1
 integral_slowing_down, _ = quad(lambda E: slowing_down_pdf(E, E_c, E_alpha, A), 0, E_alpha)
@@ -80,3 +80,4 @@ print(f"Integral of Slowing Down PDF: {integral_slowing_down:.4f}")
 print(f"Integral of Maxwell-Boltzmann PDF: {integral_MB:.4f}")
 print(f"Mean energy of Slowing Down PDF (calculated): {mean_E:.4f} MeV")
 print(f"Mean energy of Slowing Down PDF (formula): {mean_E_formula:.4f} MeV")
+print(f"Ec = {E_c:.4f} MeV")
