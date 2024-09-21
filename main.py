@@ -58,7 +58,7 @@ f_slowing_down = np.array([slowing_down_pdf(E, E_c, E_alpha, A) for E in E_value
 f_MB = maxwell_boltzmann_pdf(E_values, T_MB)
 
 # Plotting settings for PowerPoint
-plt.figure(figsize=(8, 9))  # Aspect ratio 8:9 for the right half of a slide
+plt.figure(figsize=(10, 9))  # Aspect ratio 8:9 for the right half of a slide
 plt.rcParams.update({'font.size': 18})  # Increase font size for all plot elements
 
 plt.plot(E_values, f_slowing_down, label='Slowing Down')
