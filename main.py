@@ -58,8 +58,12 @@ f_slowing_down = np.array([slowing_down_pdf(E, E_c, E_alpha, A) for E in E_value
 f_MB = maxwell_boltzmann_pdf(E_values, T_MB)
 
 # Plotting settings for PowerPoint
-plt.figure(figsize=(10, 9))  # Aspect ratio 8:9 for the right half of a slide
-plt.rcParams.update({'font.size': 18})  # Increase font size for all plot elements
+# plt.figure(figsize=(10, 9))  # Aspect ratio 8:9 for the right half of a slide
+# plt.rcParams.update({'font.size': 18})  # Increase font size for all plot elements
+# Plotting settings for Poster
+fig_size = plt.rcParams["figure.figsize"]
+fig_size[1] *= 0.75
+plt.rcParams["figure.figsize"] = fig_size
 
 plt.plot(E_values, f_slowing_down, label='Slowing Down')
 plt.plot(E_values, f_MB, label='Maxwell-Boltzmann', linestyle='--')
@@ -71,6 +75,10 @@ plt.grid(True)
 plt.tight_layout()  # Adjust layout to prevent clipping of labels and title
 # plt.show()
 plt.savefig('main.png', bbox_inches='tight', dpi=300)
+# Save svg
+plt.savefig('main.svg', bbox_inches='tight')
+# Save svg
+plt.savefig('main_figure.pdf', bbox_inches='tight')
 
 # Check if PDFs integrate to 1
 integral_slowing_down, _ = quad(lambda E: slowing_down_pdf(E, E_c, E_alpha, A), 0, E_alpha)
